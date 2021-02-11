@@ -7,7 +7,7 @@ use reqwest::{Response};
 
 fn main() {
     // ToDo: Creater configuartion and configuration factory 
-    let url: String = String::from("https://finance.yahoo.com/gainers?guccounter=1&guce_referrer=aHR0cHM6Ly9kdWNrZHVja2dvLmNvbS8&guce_referrer_sig=AQAAAAGs82DKSARjzO4JYBZn9fA-74sy2YUszrDA5-ArFjLTG2nyw1OAVXFTCHyaPvKZTqg_D5heNJKW3wvFuHQM8x18UvLYFOaw49eRDNtEL13B21htLk5BZBn8t2ZVmlCVkYvIJjrniE9p2idqscXY8SOWvIT9jbQR5dIocvSushLm");
+    let url: String = String::from("https://finance.yahoo.com/gainers?offset=0&count=100");
     let selector: String = String::from(".simpTblRow");
 
 
