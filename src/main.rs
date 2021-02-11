@@ -1,13 +1,9 @@
 extern crate reqwest;
-extern crate scraper;
 
-use core::panic;
+#[path = "http/basic_http_handler.rs"] mod basic_http_handler;
+#[path = "dto/stock_dto.rs"] mod stock_dto;
 
-use reqwest::{Response, StatusCode, header::WARNING};
-use scraper::{ElementRef, Html, Selector};
-use log::{warn};
-
-#[path = "http/BasicHttpHandler.rs"] mod BasicHttpHandler;
+use reqwest::{Response};
 
 fn main() {
     // ToDo: Creater configuartion and configuration factory 
@@ -15,7 +11,7 @@ fn main() {
     let selector: String = String::from(".simpTblRow");
 
 
-    let handler = BasicHttpHandler::BasicHttpHandler{ url }; // find a better matching name
+    let handler = basic_http_handler::BasicHttpHandler{ url }; // find a better matching name
     
     let mut res:Response = handler.get(); // add paramter
     if handler.is_response_ok(&res) {
@@ -23,4 +19,6 @@ fn main() {
         let doc = handler.parse_body_as_html(&body);
         handler.select(&doc, &selector);
     }
+
+    // let stock: stock_dto::stock_dto = stock_dto::stock_dto::new(symbol: &str, name: &str, price: &str, change: &str, change_in_percentage: &str, volume: &str, market_cap: &str, pe_ratio_ttm: &str)
 }
