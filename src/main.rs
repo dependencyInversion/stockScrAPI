@@ -1,7 +1,7 @@
 extern crate reqwest;
 
 #[path = "http/basic_http_handler.rs"] mod basic_http_handler;
-#[path = "dto/stock_dto.rs"] mod stock_dto;
+#[path = "dto/stock/stock_dto.rs"] mod stock_dto;
 
 use reqwest::{Response};
 
