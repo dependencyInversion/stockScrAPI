@@ -10,7 +10,7 @@ pub struct stock_dto {
 }
 
 impl stock_dto {
-    pub fn new (
+    pub fn new ( // move this into a factory; input (vec<vec<str>>); output (list<stock_dto>)
 
         symbol: &str,
         name: &str,
