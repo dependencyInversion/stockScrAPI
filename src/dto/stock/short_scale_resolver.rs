@@ -13,9 +13,9 @@ use log::{warn};
  *       4. Improve names of tests
 */
 
-pub struct  large_number_resolver {}
+pub struct  short_scale_resolver {}
 
-impl large_number_resolver {
+impl short_scale_resolver {
     
     pub fn short_scale_to_i64(&self, indicator: &char) -> i64 {
         match indicator {
@@ -77,13 +77,13 @@ impl large_number_resolver {
 // Move tests to separate directory later on
 
 #[cfg(test)]
-mod large_number_resolver_test {
-    use super::large_number_resolver;
+mod short_scale_resolver_test {
+    use super::short_scale_resolver;
 
     #[test]
     fn expect_output_to_be_one_million() {
         let input = 'M';
-        let resolver = large_number_resolver{};
+        let resolver = short_scale_resolver{};
 
         assert_eq!(resolver.short_scale_to_i64(&input), 1000000);
     }
@@ -91,7 +91,7 @@ mod large_number_resolver_test {
     #[test]
     fn expect_output_to_be_one_billion() {
         let input = 'B';
-        let resolver = large_number_resolver{};
+        let resolver = short_scale_resolver{};
 
         assert_eq!(resolver.short_scale_to_i64(&input), 1000000000);
     }
@@ -99,7 +99,7 @@ mod large_number_resolver_test {
     #[test]
     fn expect_to_panic() {
         let invalid_input = 'T';
-        let resolver = large_number_resolver{};
+        let resolver = short_scale_resolver{};
 
         let result = resolver.short_scale_to_i64(&invalid_input);
 
@@ -108,7 +108,7 @@ mod large_number_resolver_test {
 
     #[test]
     fn extract_indicator_test_expect_to_return_M () {
-        let resolver = large_number_resolver{};
+        let resolver = short_scale_resolver{};
         let result = resolver.extract_indicator("10M");
 
         assert_eq!('M', result)
@@ -116,7 +116,7 @@ mod large_number_resolver_test {
 
     #[test]
     fn extract_indicator_test_expect_to_return_B () {
-        let resolver = large_number_resolver{};
+        let resolver = short_scale_resolver{};
         let result = resolver.extract_indicator("10B");
 
         assert_eq!('B', result)
@@ -124,7 +124,7 @@ mod large_number_resolver_test {
 
     #[test]
     fn t() {
-        let resolver = large_number_resolver{};
+        let resolver = short_scale_resolver{};
         resolver.from_string_slice("10M");
     }
 
@@ -132,7 +132,7 @@ mod large_number_resolver_test {
     fn from_raw_expect_to_return_ten_million() {
         let input = "10M";
         let ten_million = 10 * i32::pow(10, 6) as i64;
-        let resolver = large_number_resolver{};
+        let resolver = short_scale_resolver{};
 
         assert_eq!(resolver.from_string_slice(input), ten_million);
     }
@@ -141,7 +141,7 @@ mod large_number_resolver_test {
     fn from_raw_expect_to_return_ten() {
         let input = "10";
         let ten_million: i64 = 10;
-        let resolver = large_number_resolver{};
+        let resolver = short_scale_resolver{};
 
         assert_eq!(resolver.from_string_slice(input), ten_million);
     }
