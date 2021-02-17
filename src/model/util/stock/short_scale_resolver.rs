@@ -43,13 +43,10 @@ impl short_scale_resolver {
     fn extract_multiplier(&self, input: &str) -> i64 {
 
         let re = Regex::new(r"(^(\d)+)").unwrap();
-        let mut base: &str = "";
+        let first_capture = re.captures_iter(input).nth(0).unwrap();
+        let result = first_capture.get(0).unwrap().as_str();
 
-        for caps in re.captures_iter(input).take(1) {
-            base = caps.get(0).unwrap().as_str();
-        }
-
-        base.parse::<i64>().unwrap()
+        result.parse::<i64>().unwrap()
 
     }
 
