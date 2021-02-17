@@ -35,7 +35,7 @@ mod name_test {
     }
 
     #[test]
-    pub fn get_symbol_expect_to_be_equal_to_input() {
+    pub fn get_name_expect_to_be_equal_to_input() {
         let i = String::from("Clubhouse Media Group Inc.");
         let mut n = Name::new();
 
