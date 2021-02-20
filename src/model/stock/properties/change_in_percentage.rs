@@ -1,5 +1,3 @@
-use crate::change;
-
 pub struct ChangeInPercentage {
     change_in_percentage: f32
 }
