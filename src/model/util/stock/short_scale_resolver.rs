@@ -13,11 +13,11 @@ use log::{warn};
  *       4. Improve names of tests
 */
 
-pub struct  short_scale_resolver {}
+pub struct  ShortScaleResolver {}
 
-impl short_scale_resolver {
+impl ShortScaleResolver {
     
-    pub fn short_scale_to_i64(&self, indicator: &char) -> i64 {
+    pub fn short_scale_to_i64(indicator: &char) -> i64 {
         match indicator {
             'M' => i32::pow(10, 6) as i64,
             'B' => i32::pow(10, 9) as i64,
@@ -28,7 +28,7 @@ impl short_scale_resolver {
         }
     }
 
-    fn extract_indicator(&self, input: &str) -> char {
+    fn extract_indicator(input: &str) -> char {
         
         let re = Regex::new(r"([MB]$)").unwrap();
         let mut indicator: &str = "";
@@ -40,7 +40,7 @@ impl short_scale_resolver {
         indicator.chars().rev().last().unwrap()
     }
 
-    fn extract_multiplier(&self, input: &str) -> i64 {
+    fn extract_multiplier(input: &str) -> i64 {
 
         let re = Regex::new(r"(^(\d)+)").unwrap();
         let first_capture = re.captures_iter(input).nth(0).unwrap();
@@ -50,19 +50,19 @@ impl short_scale_resolver {
 
     }
 
-    fn has_indicator(&self, input: &str) -> bool {
+    pub fn has_indicator(input: &str) -> bool {
         let re: Regex = Regex::new(r"([MB]$)").unwrap();
         
         re.is_match(input)
     }
 
-    pub fn from_string_slice(&self, input: &str) -> i64 {
+    pub fn from_string_slice(input: &str) -> i64 {
         
-        let mut res: i64 = self.extract_multiplier(&input);
+        let mut res: i64 = ShortScaleResolver::extract_multiplier(&input);
         
-        if self.has_indicator(input) {
-            let indicator = self.extract_indicator(&input);
-            let factor = self.short_scale_to_i64(&indicator);
+        if ShortScaleResolver::has_indicator(input) {
+            let indicator = ShortScaleResolver::extract_indicator(&input);
+            let factor = ShortScaleResolver::short_scale_to_i64(&indicator);
 
             res *= factor;
         }
@@ -74,72 +74,60 @@ impl short_scale_resolver {
 // Move tests to separate directory later on
 
 #[cfg(test)]
-mod short_scale_resolver_test {
-    use super::short_scale_resolver;
+mod ShortScaleResolver_test {
+    use super::ShortScaleResolver;
 
     #[test]
     fn expect_output_to_be_one_million() {
         let input = 'M';
-        let resolver = short_scale_resolver{};
 
-        assert_eq!(resolver.short_scale_to_i64(&input), 1000000);
+        assert_eq!(ShortScaleResolver::short_scale_to_i64(&input), 1000000);
     }
 
     #[test]
     fn expect_output_to_be_one_billion() {
         let input = 'B';
-        let resolver = short_scale_resolver{};
 
-        assert_eq!(resolver.short_scale_to_i64(&input), 1000000000);
+        assert_eq!(ShortScaleResolver::short_scale_to_i64(&input), 1000000000);
     }
 
     #[test]
     fn expect_to_panic() {
         let invalid_input = 'T';
-        let resolver = short_scale_resolver{};
 
-        let result = resolver.short_scale_to_i64(&invalid_input);
+        let result = ShortScaleResolver::short_scale_to_i64(&invalid_input);
 
         assert_eq!(result, 1)
     }
 
     #[test]
     fn extract_indicator_test_expect_to_return_M () {
-        let resolver = short_scale_resolver{};
-        let result = resolver.extract_indicator("10M");
+        let result = ShortScaleResolver::extract_indicator("10M");
 
         assert_eq!('M', result)
     }
 
     #[test]
     fn extract_indicator_test_expect_to_return_B () {
-        let resolver = short_scale_resolver{};
-        let result = resolver.extract_indicator("10B");
+        let resolver = ShortScaleResolver{};
+        let result = ShortScaleResolver::extract_indicator("10B");
 
         assert_eq!('B', result)
-    }
-
-    #[test]
-    fn t() {
-        let resolver = short_scale_resolver{};
-        resolver.from_string_slice("10M");
     }
 
     #[test]
     fn from_raw_expect_to_return_ten_million() {
         let input = "10M";
         let ten_million = 10 * i32::pow(10, 6) as i64;
-        let resolver = short_scale_resolver{};
 
-        assert_eq!(resolver.from_string_slice(input), ten_million);
+        assert_eq!(ShortScaleResolver::from_string_slice(input), ten_million);
     }
 
     #[test]
     fn from_raw_expect_to_return_ten() {
         let input = "10";
         let ten_million: i64 = 10;
-        let resolver = short_scale_resolver{};
 
-        assert_eq!(resolver.from_string_slice(input), ten_million);
+        assert_eq!(ShortScaleResolver::from_string_slice(input), ten_million);
     }
 }
