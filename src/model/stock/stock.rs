@@ -1,8 +1,20 @@
-use crate::symbol::Symbol;
-use crate::name::Name;
-use crate::price::Price;
-use crate::change::Change;
-use crate::change_in_percentage::ChangeInPercentage;
+#[path = "./properties/change_in_percentage.rs"] mod change_in_percentage;
+#[path = "./properties/change.rs"] mod change;
+#[path = "./properties/market_cap.rs"] mod market_cap;
+#[path = "./properties/name.rs"] mod name;
+#[path = "./properties/price.rs"] mod price;
+#[path = "./properties/symbol.rs"] mod symbol;
+#[path = "./properties/volume.rs"] mod volume;
+#[path = "./properties/average_volume.rs"] mod average_volume;
+
+pub use change_in_percentage::ChangeInPercentage;
+pub use change::Change;
+pub use market_cap::MarketCap;
+pub use name::Name;
+pub use price::Price;
+pub use volume::Volume;
+pub use symbol::Symbol;
+pub use average_volume::AverageVolume;
 
 pub struct Stock {
     pub symbol: Symbol,
@@ -10,8 +22,8 @@ pub struct Stock {
     pub price: Price,
     pub change: Change,
     pub change_in_percentage: ChangeInPercentage,
-    pub volume: i64,
-    pub average_volume: i64,
-    pub market_cap: i64,
+    pub volume: Volume,
+    pub average_volume: AverageVolume,
+    pub market_cap: MarketCap,
     pub price_earnings_ratio: f32,
 }
