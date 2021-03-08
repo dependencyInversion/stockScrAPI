@@ -1,7 +1,7 @@
 #[path = "../../stock/stock.rs"] mod stock;
 
 use stock::{ Stock, AverageVolume, ChangeInPercentage, Change, MarketCap, Name, Price, Volume, Symbol, PriceEarningsRatio };
-use crate::short_scale_resolver::ShortScaleResolver;
+use short_scale_resolver::ShortScaleResolver;
 
 pub struct stock_dto_factory { }
 
@@ -21,8 +21,8 @@ impl stock_dto_factory {
         let average_volume = AverageVolume::from_string_slice(raw_stock_data[6]);
         let market_cap = MarketCap::from_string_slice(raw_stock_data[7]);
         let price_earnings_ratio = match PriceEarningsRatio::from_string_slice(raw_stock_data[8]) {
-            Some(per) => {per},
-            None => {PriceEarningsRatio::new()},
+            Some(p) => { p },
+            None => { PriceEarningsRatio::new() },
         };
 
         Stock {
