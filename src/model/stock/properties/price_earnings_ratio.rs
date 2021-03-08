@@ -13,7 +13,9 @@ impl PriceEarningsRatio {
             return None;
         }
 
-        Some(PriceEarningsRatio { price_earnings_ratio: slice.parse::<f32>().unwrap() })
+        let result = str::replace(slice, ",", "");
+
+        Some(PriceEarningsRatio { price_earnings_ratio: result.parse::<f32>().unwrap() })
     }
 
     pub fn set_price_earnings_ratio(&mut self, input: &f32) {
@@ -39,10 +41,10 @@ mod price_earnings_ratio_test {
 
     #[test]
     pub fn from_string_slice_expect_to_be_equal_to_input() {
-        let i = "32.89";
+        let i = "4,620.00";
         let p = PriceEarningsRatio::from_string_slice(i).unwrap();
 
-        assert_eq!(p.get_price_earnings_ratio(), 32.89)
+        assert_eq!(p.get_price_earnings_ratio(), 4620.00)
     }
 
     #[test]
