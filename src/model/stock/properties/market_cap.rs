@@ -1,4 +1,4 @@
-use crate::short_scale_resolver::ShortScaleResolver;
+use short_scale_resolver::ShortScaleResolver;
 
 pub struct MarketCap {
     market_cap: i64

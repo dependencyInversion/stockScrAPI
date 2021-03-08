@@ -13,3 +13,6 @@ json = "0.12.4"
 scraper = "0.12.0"
 log = "0.4"
 regex = "1"
+
+[dependencies.short_scale_resolver]
+path = "./short_scale_resolver/"

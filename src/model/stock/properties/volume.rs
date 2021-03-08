@@ -1,4 +1,4 @@
-use crate::short_scale_resolver::ShortScaleResolver;
+use short_scale_resolver::ShortScaleResolver;
 
 pub struct Volume {
     volume: i64
