@@ -7,8 +7,8 @@ use core::panic;
 use reqwest::{Response, StatusCode, header::WARNING};
 use scraper::{ElementRef, Html, Selector};
 use log::{warn};
-use crate::short_scale_resolver::short_scale_resolver;
-use crate::stock_dto::stock_dto;
+use short_scale_resolver::ShortScaleResolver;
+use crate::stock_dto::StockDto;
 
 pub struct BasicHttpHandler {
     pub url: String,
@@ -50,15 +50,15 @@ impl BasicHttpHandler {
     }
 
     pub fn select(&self, html: &Html, css_selector: &String) { // different domain
-        let resolver = short_scale_resolver { };
+        let resolver = ShortScaleResolver { };
         let factory = stock_dto_factory::stock_dto_factory::new();
         let selector = Selector::parse(css_selector).unwrap(); // match this later on
 
         for element in html.select(&selector) {
             let content = element.text().collect::<Vec<_>>(); // ToDo: Vec<&str> to DTO
 
-            let dto = factory.from_string_slice_vector(&content, &resolver);
-            println!("{:?}", dto.symbol);
+            let stock = factory.stock_from_vector_of_str(&content, &resolver);
+            println!("{:?}\n", stock);
         }
     }
 }
